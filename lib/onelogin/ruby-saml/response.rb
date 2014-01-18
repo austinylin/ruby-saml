@@ -45,7 +45,11 @@ module Onelogin
 
           stmt_element.elements.each do |attr_element|
             name  = attr_element.attributes["Name"]
-            value = attr_element.elements.first.text
+            if attr_element.elements.count == 1
+              value = attr_element.elements.first.text
+            else
+              value = attr_element.elements.map(&:text)
+            end
 
             result[name] = value
           end
